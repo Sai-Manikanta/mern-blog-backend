@@ -1,23 +1,10 @@
 const router = require('express').Router();
+const { getBlogs, getSingleBlog, postBlog, updateBlog, deleteBlog } = require('../controllers/blog');
 
-router.get('/', (req, res) => {
-    res.send('Blog get')
-});
-
-router.get('/:id', (req, res) => {
-    res.send(`Blog get single post ${req.params.id}`)
-});
-
-router.post('/', (req, res) => {
-    res.send('Blog post')
-});
-
-router.put('/:id', (req, res) => {
-    res.send(`Blog update ${req.params.id}`);
-});
-
-router.delete('/:id', (req, res) => {
-    res.send(`Blog Delete ${req.params.id}`);
-});
+router.get('/', getBlogs);
+router.get('/:id', getSingleBlog);
+router.post('/', postBlog);
+router.put('/:id', updateBlog);
+router.delete('/:id', deleteBlog);
 
 module.exports = router;
