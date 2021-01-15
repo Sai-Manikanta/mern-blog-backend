@@ -1,5 +1,8 @@
-const getBlogs = (req, res) => {
-    res.send('Blog get')
+const Blog = require('../models/blog');
+
+const getBlogs = async (req, res) => {
+    const blogs = await Blog.find();
+    res.send(blogs);
 };
 
 const getSingleBlog = (req, res) => {
