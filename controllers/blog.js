@@ -1,4 +1,4 @@
-const Blog = require('../models/blog');
+const { Blog, validateBlog } = require('../models/blog');
 
 const getBlogs = async (req, res) => {
     const blogs = await Blog.find();
@@ -10,7 +10,14 @@ const getSingleBlog = (req, res) => {
 };
 
 const postBlog = (req, res) => {
-    res.send('Blog post')
+    const { error } = validateBlog(req.body);
+
+    if(error){
+        return res.status(400).send(error.details[0].message);
+    }
+
+    console.log(req.body);
+    res.send('Blog post');
 };
 
 const updateBlog = (req, res) => {
