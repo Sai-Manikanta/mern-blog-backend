@@ -9,15 +9,22 @@ const getSingleBlog = (req, res) => {
     res.send(`Blog get single post ${req.params.id}`)
 };
 
-const postBlog = (req, res) => {
+const postBlog = async (req, res) => {
     const { error } = validateBlog(req.body);
 
     if(error){
         return res.status(400).send(error.details[0].message);
     }
 
-    console.log(req.body);
-    res.send('Blog post');
+    let blog = new Blog(req.body);
+    
+    try {
+        blog = await blog.save();
+        res.send(blog);
+    } catch(error) {
+        console.log('Error while posting blog', error)
+        res.status(400).send('Error while posting blog')
+    }
 };
 
 const updateBlog = (req, res) => {
